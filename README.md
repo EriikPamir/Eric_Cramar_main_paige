@@ -44,10 +44,10 @@ images/
 
 ## Before going live — things that still need real values
 
-1. **Business email** — the contact form posts to [FormSubmit](https://formsubmit.co) using a placeholder address. Open `js/form.js` and replace `STUDIO_EMAIL` (top of the file) with the real inbox, then update the same address in `start-a-project.html`'s `<form action="...">`, and in the `mailto:` links in `index.html`, `privacy.html` and `terms.html`. FormSubmit will email that inbox a one-time confirmation link after the first real submission — click it once to activate.
-2. **Social links** — commented-out, ready-to-use blocks are in `index.html` (footer and contact section, search for "Social links"). Uncomment and fill in real URLs when available.
+1. **Business email** — set to `contact@erickramar.com` in `js/form.js` (`STUDIO_EMAIL`), `start-a-project.html`'s form action, and the `mailto:` links across the site. FormSubmit will email that inbox a one-time confirmation link after the first real submission — click it once to activate delivery.
+2. **Social links** — not set up yet. Commented-out, ready-to-use blocks are in `index.html` (footer and contact section, search for "Social links"). Uncomment and fill in real URLs once profiles exist.
 3. **Phone number** (optional) — a commented example is next to the contact email in `index.html`.
-4. **Legal pages** — `privacy.html` and `terms.html` are reasonable boilerplate, not legal advice. Have them reviewed before launch.
+4. **Legal pages** — `privacy.html` and `terms.html` are a thorough, US-small-business-oriented draft (CCPA/COPPA-aware privacy policy, Pennsylvania-governed terms with a standard liability cap). They were written to a good US-law standard but are still AI-drafted, not attorney-certified — worth a quick pass by a Pennsylvania attorney before relying on them commercially, especially once e-commerce/payment flows are involved.
 5. **Work / Showcase** — the five projects are demonstration placeholders (abstract illustrations, no real screenshots). Their "View Project" buttons are intentionally disabled until real case-study pages exist. Replace with real client work as it's completed.
 
 ## Editing tips

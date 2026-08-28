@@ -4,10 +4,9 @@
    a free service that forwards form submissions straight to an email
    inbox, no server code required.
 
-   TO ACTIVATE:
-   1. Replace STUDIO_EMAIL below with the studio's real business email.
-   2. Deploy the site and submit the form once for real.
-   3. FormSubmit emails that address a one-time confirmation link —
+   TO ACTIVATE (STUDIO_EMAIL below is already set to contact@erickramar.com):
+   1. Deploy the site and submit the form once for real.
+   2. FormSubmit emails that address a one-time confirmation link —
       click it once and every submission after that lands in the inbox.
 
    To switch to a different backend later (e.g. your own API), replace
@@ -15,7 +14,7 @@
    stay as-is.
    --------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
-  var STUDIO_EMAIL = "hello@erickramarstudio.com"; // <-- replace with the real inbox
+  var STUDIO_EMAIL = "contact@erickramar.com";
 
   var form = document.querySelector("[data-project-form]");
   if (!form) return;
