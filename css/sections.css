@@ -50,9 +50,26 @@
 }
 
 .hero__mark {
+  position: relative;
   width: min(70%, 320px);
   will-change: transform;
   filter: drop-shadow(0 30px 60px rgba(10, 124, 255, 0.18));
+}
+
+.hero__mark-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Populated + shown by js/particle-logo.js once it can sample the image;
+   the <img> above stays as the no-JS / fallback version. */
+.hero__mark-canvas {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .section-dark .hero__mark {
