@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — Eric Kramar Studio</title>
+<link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/variables.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/sections.css" />
+</head>
+<body>
+<header class="nav" data-nav>
+  <div class="container nav__inner">
+    <a class="nav__brand" href="index.html">
+      <img src="images/Logo.png" alt="Eric Kramar Studio" />
+      <span class="nav__brand-text">Eric Kramar Studio</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
+      <a class="btn btn-primary nav__cta" href="start-a-project.html">Start a Project</a>
+      <button class="nav__burger" data-nav-burger type="button" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <article class="container legal-page">
+    <h1>Privacy Policy</h1>
+    <p class="updated">
+      Draft template — have this reviewed by a lawyer before relying on it. Last updated: <span id="year">2026</span>.
+    </p>
+
+    <p>Eric Kramar Studio LLC ("we", "us", "our") respects your privacy. This policy explains what information we collect through this website and how we use it.</p>
+
+    <h2>Information we collect</h2>
+    <ul>
+      <li>Information you submit through our contact or project inquiry forms — name, email, company name, and project details.</li>
+      <li>Basic technical information (such as browser type and pages visited) if analytics are enabled.</li>
+    </ul>
+
+    <h2>How we use it</h2>
+    <ul>
+      <li>To respond to your inquiry and discuss potential projects.</li>
+      <li>To communicate with you about a project you've engaged us for.</li>
+      <li>We do not sell your information to third parties.</li>
+    </ul>
+
+    <h2>Third-party services</h2>
+    <p>Project inquiry submissions are processed through a third-party form-delivery service to route messages to our inbox. Payment processing for e-commerce projects is handled by third-party providers (such as Stripe or PayPal) — we do not store payment card details.</p>
+
+    <h2>Data retention</h2>
+    <p>We retain inquiry and project information for as long as reasonably necessary to respond to you or deliver a project, or as required by law.</p>
+
+    <h2>Your rights</h2>
+    <p>You may request access to, correction of, or deletion of your personal information by contacting us at the email address below.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy can be sent to <a href="mailto:hello@erickramarstudio.com">hello@erickramarstudio.com</a>.</p>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <span class="footer__brand">Eric Kramar Studio LLC</span>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; <span id="year2">2026</span> Eric Kramar Studio LLC. All rights reserved.</span>
+      <div class="footer__legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year2").textContent = new Date().getFullYear();
+</script>
+<script src="js/theme.js"></script>
+<script src="js/nav.js"></script>
+</body>
+</html>
