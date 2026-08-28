@@ -56,15 +56,16 @@
   filter: drop-shadow(0 30px 60px rgba(10, 124, 255, 0.18));
 }
 
-.hero__mark-img {
+/* Shared by every [data-particle-logo] instance (hero + about, currently).
+   The <img> is the fallback/no-JS version; js/particle-logo.js hides it
+   and shows the <canvas> once it can sample pixels from the image. */
+.particle-img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* Populated + shown by js/particle-logo.js once it can sample the image;
-   the <img> above stays as the no-JS / fallback version. */
-.hero__mark-canvas {
+.particle-canvas {
   display: none;
   position: absolute;
   inset: 0;
@@ -409,6 +410,7 @@
 }
 
 .about-portrait {
+  position: relative;
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-lg);
   background: var(--color-bg-alt);
@@ -418,8 +420,8 @@
   overflow: hidden;
 }
 
-.about-portrait img {
-  width: 48%;
+.about-portrait .particle-img {
+  width: 78%;
   opacity: 0.9;
 }
 

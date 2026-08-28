@@ -1,7 +1,8 @@
-/* Hero logo as an interactive particle field — a vanilla-JS/Canvas take
-   on the "Particle Text" effect (react-bits), built from the studio
-   mark instead of literal text. Particles assemble into the logo's
-   shape and scatter away from the cursor, then ease back into place.
+/* Studio logo rendered as an interactive particle field — a vanilla-JS/
+   Canvas take on the "Particle Text" effect (react-bits), built from
+   the studio mark instead of literal text. Particles assemble into the
+   logo's shape and scatter away from the cursor, then ease back into
+   place. Works on every [data-particle-logo] element on the page.
 
    Tune the feel here: */
 var PARTICLE_GRID = 100; /* sampling resolution — higher = crisper shape, more particles */
@@ -10,15 +11,16 @@ var PARTICLE_EASE = 0.06; /* how eagerly particles return to their target positi
 var PARTICLE_REPEL_STRENGTH = 3.2;
 
 document.addEventListener("DOMContentLoaded", function () {
-  var wrap = document.querySelector("[data-particle-logo]");
-  if (!wrap) return;
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion || !window.requestAnimationFrame) return; /* plain <img>s stay visible */
 
+  document.querySelectorAll("[data-particle-logo]").forEach(setUpParticleLogo);
+});
+
+function setUpParticleLogo(wrap) {
   var img = wrap.querySelector("[data-particle-source]");
   var canvas = wrap.querySelector("[data-particle-canvas]");
   if (!img || !canvas) return;
-
-  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReducedMotion || !window.requestAnimationFrame) return; /* the plain <img> stays visible */
 
   var ctx = canvas.getContext("2d");
   var particles = [];
@@ -184,4 +186,4 @@ document.addEventListener("DOMContentLoaded", function () {
       { threshold: 0.05 }
     ).observe(wrap);
   }
-});
+}
