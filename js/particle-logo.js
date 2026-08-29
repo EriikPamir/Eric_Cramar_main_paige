@@ -10,6 +10,26 @@ var PARTICLE_STEP = 2; /* keep 1 in every N sampled points — higher = sparser 
 var PARTICLE_EASE = 0.06; /* how eagerly particles return to their target position */
 var PARTICLE_REPEL_STRENGTH = 3.2;
 
+/* Shimmer: particles cycle between these two colors in a traveling wave
+   rather than a flat fill. Edit the hex values to change the palette. */
+var SHIMMER_FROM = [10, 124, 255]; /* blue */
+var SHIMMER_TO = [255, 59, 48]; /* red */
+var SHIMMER_SPEED = 0.02; /* how fast the wave animates */
+var SHIMMER_WAVE_SCALE = 0.012; /* how much the wave shifts across the shape (smaller = broader bands) */
+
+var SHIMMER_STEPS = 64;
+var SHIMMER_PALETTE = (function () {
+  var palette = [];
+  for (var i = 0; i < SHIMMER_STEPS; i++) {
+    var t = i / (SHIMMER_STEPS - 1);
+    var r = Math.round(SHIMMER_FROM[0] + (SHIMMER_TO[0] - SHIMMER_FROM[0]) * t);
+    var g = Math.round(SHIMMER_FROM[1] + (SHIMMER_TO[1] - SHIMMER_FROM[1]) * t);
+    var b = Math.round(SHIMMER_FROM[2] + (SHIMMER_TO[2] - SHIMMER_FROM[2]) * t);
+    palette.push("rgb(" + r + "," + g + "," + b + ")");
+  }
+  return palette;
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion || !window.requestAnimationFrame) return; /* plain <img>s stay visible */
@@ -27,11 +47,6 @@ function setUpParticleLogo(wrap) {
   var mouse = { x: -9999, y: -9999, active: false };
   var running = false;
   var rafId = null;
-
-  function readColor(varName, fallback) {
-    var value = getComputedStyle(document.documentElement).getPropertyValue(varName);
-    return value && value.trim() ? value.trim() : fallback;
-  }
 
   function sampleParticles(width, height) {
     var off = document.createElement("canvas");
@@ -88,14 +103,16 @@ function setUpParticleLogo(wrap) {
     return { width: width, height: height };
   }
 
+  var shimmerFrame = 0;
+
   function tick() {
     if (!running) return;
     var width = wrap.clientWidth;
     var height = wrap.clientHeight;
     ctx.clearRect(0, 0, width, height);
 
-    var baseColor = readColor("--color-text-muted", "#8a8a8f");
-    var accentColor = readColor("--color-accent", "#0a7cff");
+    shimmerFrame++;
+    var wave = shimmerFrame * SHIMMER_SPEED;
     var repelRadius = Math.max(width, height) * 0.22;
 
     for (var i = 0; i < particles.length; i++) {
@@ -121,9 +138,15 @@ function setUpParticleLogo(wrap) {
       p.x += p.vx;
       p.y += p.vy;
 
+      /* Blue<->red traveling shimmer: a sine wave over each particle's
+         target position, so color flows across the shape rather than
+         blinking in unison. Particles near the cursor flash white. */
+      var t = (Math.sin((p.tx + p.ty) * SHIMMER_WAVE_SCALE + wave) + 1) / 2;
+      var paletteIndex = Math.round(t * (SHIMMER_PALETTE.length - 1));
+
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = isNearCursor ? accentColor : baseColor;
+      ctx.arc(p.x, p.y, isNearCursor ? p.r * 1.6 : p.r, 0, Math.PI * 2);
+      ctx.fillStyle = isNearCursor ? "#ffffff" : SHIMMER_PALETTE[paletteIndex];
       ctx.fill();
     }
 

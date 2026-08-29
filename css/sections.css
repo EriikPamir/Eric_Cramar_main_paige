@@ -13,7 +13,24 @@
   overflow: hidden;
 }
 
+/* Full-bleed dot-grid backdrop, faded toward the edges so it reads as
+   atmosphere rather than a hard grid. Color comes from --dot-color
+   (set per-theme in variables.css). */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 45%, transparent 85%);
+  mask-image: radial-gradient(ellipse at center, #000 45%, transparent 85%);
+  pointer-events: none;
+}
+
 .hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: var(--space-5);
@@ -43,7 +60,7 @@
 
 .hero__stage {
   position: relative;
-  height: min(60vh, 560px);
+  height: min(78vh, 760px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,9 +68,9 @@
 
 .hero__mark {
   position: relative;
-  width: min(70%, 320px);
+  width: min(95%, 640px);
   will-change: transform;
-  filter: drop-shadow(0 30px 60px rgba(10, 124, 255, 0.18));
+  filter: drop-shadow(0 40px 90px rgba(10, 124, 255, 0.22));
 }
 
 /* Shared by every [data-particle-logo] instance (hero + about, currently).
