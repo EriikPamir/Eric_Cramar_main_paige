@@ -36,6 +36,9 @@ js/
   animations.js          Scroll-reveal (IntersectionObserver) + hero scroll-scrub + process stepper fill
   faq.js                 FAQ accordion open/close
   form.js                Start-a-Project form validation + submission (see below)
+  particle-logo.js       Renders every [data-particle-logo] (hero + about) as an interactive
+                         particle field sampled from images/Logo.png — shimmer colors and
+                         density are tunable constants at the top of the file
 
 images/
   Logo.png               Studio mark — used as nav logo, hero centerpiece, and background accent
@@ -55,3 +58,4 @@ images/
 - Colors, fonts, spacing: everything lives in `css/variables.css` as CSS custom properties — change a value there and it updates everywhere.
 - Adding a new FAQ question: copy one `.accordion-item` block in `index.html`'s `#faq` section — `js/faq.js` wires up any number of them automatically.
 - Adding a new Work tile: copy one `<article class="work-tile">` block, alternate `section-alt`/no-class and the SVG's colors for visual rhythm.
+- **After editing any CSS or JS file, browsers may keep serving the old cached copy.** Every `<link>`/`<script>` tag has a `?v=2` on the end — bump that number (in all 4 HTML files) whenever you change a CSS/JS file and want visitors' browsers to fetch the new version immediately instead of waiting for their cache to expire.
