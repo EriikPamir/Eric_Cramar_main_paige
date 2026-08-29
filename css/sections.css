@@ -14,8 +14,10 @@
 }
 
 /* Full-bleed dot-grid backdrop, faded toward the edges so it reads as
-   atmosphere rather than a hard grid. Color comes from --dot-color
-   (set per-theme in variables.css). */
+   atmosphere rather than a hard grid. Base color is --dot-color (blue,
+   set per-theme in variables.css); a second white layer is masked to a
+   spotlight that follows the cursor (--mx/--my, set by js/animations.js)
+   so the field shimmers blue -> white under the pointer. */
 .hero::before {
   content: "";
   position: absolute;
@@ -28,19 +30,37 @@
   pointer-events: none;
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.95) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(circle 220px at var(--mx, -9999px) var(--my, -9999px), #000 0%, transparent 70%);
+  mask-image: radial-gradient(circle 220px at var(--mx, -9999px) var(--my, -9999px), #000 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.hero.is-dot-hover::after {
+  opacity: 1;
+}
+
 .hero__grid {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-5);
-  align-items: center;
   width: 100%;
+  pointer-events: none; /* let clicks/hover pass through to the logo behind empty space */
 }
 
 .hero__content {
   position: relative;
-  z-index: 2;
+  pointer-events: auto;
+  justify-self: start;
+  max-width: 640px;
 }
 
 .hero__content h1 {
@@ -58,19 +78,24 @@
   gap: var(--space-2);
 }
 
+/* The particle logo now fills the entire hero as a background layer,
+   behind the text (z-index below .hero__grid) but above the dot field. */
 .hero__stage {
-  position: relative;
-  height: min(78vh, 760px);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .hero__mark {
   position: relative;
-  width: min(95%, 640px);
+  width: min(80vh, 85vw, 820px);
   will-change: transform;
   filter: drop-shadow(0 40px 90px rgba(10, 124, 255, 0.22));
+  pointer-events: auto;
 }
 
 /* Shared by every [data-particle-logo] instance (hero + about, currently).
@@ -631,16 +656,10 @@
 }
 
 @media (max-width: 900px) {
-  .hero__grid,
   .work-tile__grid,
   .about-grid,
   .project-form-layout {
     grid-template-columns: 1fr;
-  }
-
-  .hero__stage {
-    order: -1;
-    height: 320px;
   }
 
   .work-tile:nth-child(even) .work-tile__visual {
@@ -667,6 +686,18 @@
 
   .nav__brand-text {
     display: none;
+  }
+
+  /* Not enough width to sit the giant mark beside the text without
+     crowding it — push it down into the empty space below the CTAs
+     instead, and shrink it. */
+  .hero__stage {
+    align-items: flex-end;
+    padding-bottom: var(--space-6);
+  }
+
+  .hero__mark {
+    width: min(48vw, 220px);
   }
 }
 

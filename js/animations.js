@@ -42,9 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateProgress() {
       var rect = stage.getBoundingClientRect();
-      var viewportH = window.innerHeight;
-      /* progress 0 -> hero top at viewport top, 1 -> hero scrolled fully past */
-      var progress = 1 - Math.min(Math.max(rect.top / viewportH, 0), 1);
+      /* progress 0 -> hero at rest, 1 -> scrolled one full hero-height down */
+      var progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
       stage.style.setProperty("--scroll-progress", progress.toFixed(3));
       ticking = false;
     }
@@ -61,6 +60,23 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     updateProgress();
+  }
+
+  /* ---- Hero dot-field cursor spotlight: background dots shimmer
+     blue -> white following the pointer (see .hero::after in
+     sections.css, which masks a white dot layer to a circle at
+     --mx/--my). Purely cosmetic, so it's skipped for reduced motion. */
+  var heroSection = document.querySelector(".hero");
+  if (heroSection && !prefersReducedMotion) {
+    heroSection.addEventListener("pointermove", function (e) {
+      var rect = heroSection.getBoundingClientRect();
+      heroSection.style.setProperty("--mx", e.clientX - rect.left + "px");
+      heroSection.style.setProperty("--my", e.clientY - rect.top + "px");
+      heroSection.classList.add("is-dot-hover");
+    });
+    heroSection.addEventListener("pointerleave", function () {
+      heroSection.classList.remove("is-dot-hover");
+    });
   }
 
   /* ---- Process stepper: fill the connecting line as it scrolls into view ---- */

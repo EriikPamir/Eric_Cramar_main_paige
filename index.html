@@ -16,11 +16,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="css/variables.css?v=2" />
-<link rel="stylesheet" href="css/base.css?v=2" />
-<link rel="stylesheet" href="css/components.css?v=2" />
-<link rel="stylesheet" href="css/sections.css?v=2" />
-<link rel="stylesheet" href="css/animations.css?v=2" />
+<link rel="stylesheet" href="css/variables.css?v=4" />
+<link rel="stylesheet" href="css/base.css?v=4" />
+<link rel="stylesheet" href="css/components.css?v=4" />
+<link rel="stylesheet" href="css/sections.css?v=4" />
+<link rel="stylesheet" href="css/animations.css?v=4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -60,6 +60,14 @@
 
   <!-- ==================== HERO ==================== -->
   <section class="hero" id="home">
+    <div class="hero__stage" data-hero-stage>
+      <div class="hero__glow"></div>
+      <div class="hero__mark" data-particle-logo>
+        <img class="particle-img" data-particle-source src="images/Logo.png" alt="" aria-hidden="true" />
+        <canvas class="particle-canvas" data-particle-canvas aria-hidden="true"></canvas>
+      </div>
+    </div>
+
     <div class="container hero__grid">
       <div class="hero__content" data-reveal>
         <h1>We build the digital presence your business deserves.</h1>
@@ -67,14 +75,6 @@
         <div class="hero__actions">
           <a class="btn btn-primary btn-large" href="start-a-project.html">Start a Project</a>
           <a class="btn btn-ghost btn-large" href="#work">Explore Our Work</a>
-        </div>
-      </div>
-
-      <div class="hero__stage" data-hero-stage>
-        <div class="hero__glow"></div>
-        <div class="hero__mark" data-particle-logo>
-          <img class="particle-img" data-particle-source src="images/Logo.png" alt="" aria-hidden="true" />
-          <canvas class="particle-canvas" data-particle-canvas aria-hidden="true"></canvas>
         </div>
       </div>
     </div>
@@ -800,10 +800,10 @@
 </footer>
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-<script src="js/theme.js?v=2"></script>
-<script src="js/nav.js?v=2"></script>
-<script src="js/animations.js?v=2"></script>
-<script src="js/faq.js?v=2"></script>
-<script src="js/particle-logo.js?v=2"></script>
+<script src="js/theme.js?v=4"></script>
+<script src="js/nav.js?v=4"></script>
+<script src="js/animations.js?v=4"></script>
+<script src="js/faq.js?v=4"></script>
+<script src="js/particle-logo.js?v=4"></script>
 </body>
 </html>
