@@ -232,6 +232,67 @@
   height: 100%;
 }
 
+/* ---- Cursor-tracking 3D cube (Luxury / 3D Product tile) ---- */
+/* Pure CSS 3D + JS (js/cube.js) — no model/video asset. The cube tilts
+   toward the cursor anywhere on screen, easing back to a resting 3/4
+   angle when idle. Edit --cube-size to resize; face styling below. */
+
+.cube-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+}
+
+.cube {
+  --cube-size: 130px;
+  position: relative;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(28deg);
+  will-change: transform;
+}
+
+.cube__face {
+  position: absolute;
+  inset: 0;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  background: linear-gradient(135deg, rgba(10, 124, 255, 0.28), rgba(10, 124, 255, 0.04));
+  border: 1px solid rgba(10, 124, 255, 0.45);
+  box-shadow: inset 0 0 40px rgba(10, 124, 255, 0.18);
+}
+
+.cube__face--front {
+  transform: translateZ(calc(var(--cube-size) / 2));
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2));
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2));
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2));
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2));
+  background: linear-gradient(135deg, rgba(10, 124, 255, 0.4), rgba(10, 124, 255, 0.1));
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2));
+  background: linear-gradient(135deg, rgba(10, 124, 255, 0.16), rgba(10, 124, 255, 0.02));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube {
+    transition: none;
+  }
+}
+
 .work-tile__category {
   font-family: var(--font-mono);
   font-size: var(--fs-micro);

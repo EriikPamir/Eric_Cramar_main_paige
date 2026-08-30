@@ -16,11 +16,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="css/variables.css?v=4" />
-<link rel="stylesheet" href="css/base.css?v=4" />
-<link rel="stylesheet" href="css/components.css?v=4" />
-<link rel="stylesheet" href="css/sections.css?v=4" />
-<link rel="stylesheet" href="css/animations.css?v=4" />
+<link rel="stylesheet" href="css/variables.css?v=5" />
+<link rel="stylesheet" href="css/base.css?v=5" />
+<link rel="stylesheet" href="css/components.css?v=5" />
+<link rel="stylesheet" href="css/sections.css?v=5" />
+<link rel="stylesheet" href="css/animations.css?v=5" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -248,17 +248,16 @@
     <article class="work-tile" data-reveal>
       <div class="container work-tile__grid">
         <div class="work-tile__visual" style="background:#0b0b0c">
-          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#0a7cff" stop-opacity="0.9"/>
-                <stop offset="100%" stop-color="#0b0b0c" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <rect width="400" height="300" fill="#0b0b0c"/>
-            <polygon points="140,60 280,110 200,170 120,150" fill="url(#g1)"/>
-            <polygon points="120,150 200,170 190,240 110,220" fill="#18181a" stroke="#0a7cff" stroke-opacity="0.4"/>
-          </svg>
+          <div class="cube-stage" data-cursor-cube>
+            <div class="cube">
+              <div class="cube__face cube__face--front"></div>
+              <div class="cube__face cube__face--back"></div>
+              <div class="cube__face cube__face--right"></div>
+              <div class="cube__face cube__face--left"></div>
+              <div class="cube__face cube__face--top"></div>
+              <div class="cube__face cube__face--bottom"></div>
+            </div>
+          </div>
         </div>
         <div class="work-tile__body">
           <span class="work-tile__index">01</span>
@@ -800,10 +799,11 @@
 </footer>
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-<script src="js/theme.js?v=4"></script>
-<script src="js/nav.js?v=4"></script>
-<script src="js/animations.js?v=4"></script>
-<script src="js/faq.js?v=4"></script>
-<script src="js/particle-logo.js?v=4"></script>
+<script src="js/theme.js?v=5"></script>
+<script src="js/nav.js?v=5"></script>
+<script src="js/animations.js?v=5"></script>
+<script src="js/faq.js?v=5"></script>
+<script src="js/particle-logo.js?v=5"></script>
+<script src="js/cube.js?v=5"></script>
 </body>
 </html>
