@@ -232,6 +232,12 @@
   height: 100%;
 }
 
+.node-network-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* ---- Cursor-tracking 3D cube (Luxury / 3D Product tile) ---- */
 /* Pure CSS 3D + JS (js/cube.js) — no model/video asset. The cube tilts
    toward the cursor anywhere on screen, easing back to a resting 3/4
