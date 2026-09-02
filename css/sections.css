@@ -768,7 +768,11 @@
   }
 }
 
-@media (max-width: 768px) {
+/* Collapses to the hamburger menu earlier than the content breakpoints
+   below — translated nav labels (RU/ES) plus the language switcher run
+   out of room in the ~800-1024px tablet range well before the page
+   content itself needs to reflow. */
+@media (max-width: 1024px) {
   .nav__links,
   .nav__toggle {
     display: none;
@@ -790,7 +794,9 @@
   .nav__burger {
     display: flex;
   }
+}
 
+@media (max-width: 768px) {
   .value-list,
   .why-grid,
   .pricing-grid,

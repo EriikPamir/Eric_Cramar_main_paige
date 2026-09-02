@@ -14,14 +14,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="css/variables.css?v=6" />
-<link rel="stylesheet" href="css/base.css?v=6" />
-<link rel="stylesheet" href="css/components.css?v=6" />
-<link rel="stylesheet" href="css/sections.css?v=6" />
-<link rel="stylesheet" href="css/animations.css?v=6" />
+<link rel="stylesheet" href="css/variables.css?v=8" />
+<link rel="stylesheet" href="css/base.css?v=8" />
+<link rel="stylesheet" href="css/components.css?v=8" />
+<link rel="stylesheet" href="css/sections.css?v=8" />
+<link rel="stylesheet" href="css/animations.css?v=8" />
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="a11y.skip_link">Skip to content</a>
 
 <header class="nav" data-nav>
   <div class="container nav__inner">
@@ -31,22 +31,27 @@
     </a>
 
     <nav class="nav__links" aria-label="Primary">
-      <a href="index.html#home">Home</a>
-      <a href="index.html#services">Services</a>
-      <a href="index.html#work">Work</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#faq">FAQ</a>
-      <a href="index.html#contact">Contact</a>
+      <a href="index.html#home" data-i18n="nav.home">Home</a>
+      <a href="index.html#services" data-i18n="nav.services">Services</a>
+      <a href="index.html#work" data-i18n="nav.work">Work</a>
+      <a href="index.html#about" data-i18n="nav.about">About</a>
+      <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
     </nav>
 
     <div class="nav__actions">
-      <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle dark mode">
+      <div class="lang-switch" data-lang-switch>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+      <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle dark mode" data-i18n-aria-label="a11y.toggle_theme">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
       </button>
-      <a class="btn btn-primary nav__cta" href="start-a-project.html">Start a Project</a>
-      <button class="nav__burger" data-nav-burger type="button" aria-label="Toggle menu">
+      <a class="btn btn-primary nav__cta" href="start-a-project.html" data-i18n="nav.cta">Start a Project</a>
+      <button class="nav__burger" data-nav-burger type="button" aria-label="Toggle menu" data-i18n-aria-label="a11y.toggle_menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -57,13 +62,13 @@
   <section class="container project-form-page">
     <div class="project-form-layout">
       <aside class="project-form-aside" data-reveal>
-        <span class="eyebrow">Start a project</span>
-        <h1>Tell us about your project.</h1>
-        <p class="lead">Share a few details and we'll get back to you with next steps — usually within one to two business days.</p>
+        <span class="eyebrow" data-i18n="start.eyebrow">Start a project</span>
+        <h1 data-i18n="start.title">Tell us about your project.</h1>
+        <p class="lead" data-i18n="start.intro">Share a few details and we'll get back to you with next steps — usually within one to two business days.</p>
         <ul>
-          <li><span class="mono">01</span>&nbsp; We review your project and reply with initial thoughts.</li>
-          <li><span class="mono">02</span>&nbsp; We schedule a short call to discuss scope and goals.</li>
-          <li><span class="mono">03</span>&nbsp; You get a clear proposal and cost estimate.</li>
+          <li><span class="mono">01</span>&nbsp; <span data-i18n="start.step1">We review your project and reply with initial thoughts.</span></li>
+          <li><span class="mono">02</span>&nbsp; <span data-i18n="start.step2">We schedule a short call to discuss scope and goals.</span></li>
+          <li><span class="mono">03</span>&nbsp; <span data-i18n="start.step3">You get a clear proposal and cost estimate.</span></li>
         </ul>
       </aside>
 
@@ -72,65 +77,65 @@
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
         <div class="field">
-          <label for="field-name">Name</label>
+          <label for="field-name" data-i18n="start.field_name">Name</label>
           <input type="text" id="field-name" name="Name" required />
           <span class="field-error"></span>
         </div>
 
         <div class="field">
-          <label for="field-email">Email</label>
+          <label for="field-email" data-i18n="start.field_email">Email</label>
           <input type="email" id="field-email" name="Email" required />
           <span class="field-error"></span>
         </div>
 
         <div class="field">
-          <label for="field-company">Company Name</label>
+          <label for="field-company" data-i18n="start.field_company">Company Name</label>
           <input type="text" id="field-company" name="Company Name" />
         </div>
 
         <div class="field">
-          <label for="field-website">Existing Website <span class="hint">(optional)</span></label>
-          <input type="text" id="field-website" name="Existing Website" placeholder="yourbusiness.com" />
+          <label for="field-website"><span data-i18n="start.field_website">Existing Website</span> <span class="hint" data-i18n="start.field_website_optional">(optional)</span></label>
+          <input type="text" id="field-website" name="Existing Website" placeholder="yourbusiness.com" data-i18n-placeholder="start.field_website_placeholder" />
         </div>
 
         <div class="field">
-          <label for="field-need">What do you need?</label>
-          <input type="text" id="field-need" name="What do you need" placeholder="e.g. a new website, a redesign, an online store…" required />
+          <label for="field-need" data-i18n="start.field_need">What do you need?</label>
+          <input type="text" id="field-need" name="What do you need" placeholder="e.g. a new website, a redesign, an online store…" data-i18n-placeholder="start.field_need_placeholder" required />
           <span class="field-error"></span>
         </div>
 
         <div class="field">
-          <label>Service <span class="hint">(select all that apply)</span></label>
+          <label><span data-i18n="start.field_service">Service</span> <span class="hint" data-i18n="start.field_service_hint">(select all that apply)</span></label>
           <div class="checkbox-grid">
-            <label class="option-pill"><input type="checkbox" name="Service" value="Website" /> Website</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="Web Application" /> Web Application</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="E-commerce" /> E-commerce</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="UI/UX" /> UI/UX</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="Branding" /> Branding</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="AI Integration" /> AI Integration</label>
-            <label class="option-pill"><input type="checkbox" name="Service" value="Other" /> Other</label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="Website" /> <span data-i18n="start.service_website">Website</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="Web Application" /> <span data-i18n="start.service_webapp">Web Application</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="E-commerce" /> <span data-i18n="start.service_ecommerce">E-commerce</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="UI/UX" /> <span data-i18n="start.service_uiux">UI/UX</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="Branding" /> <span data-i18n="start.service_branding">Branding</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="AI Integration" /> <span data-i18n="start.service_ai">AI Integration</span></label>
+            <label class="option-pill"><input type="checkbox" name="Service" value="Other" /> <span data-i18n="start.service_other">Other</span></label>
           </div>
         </div>
 
         <div class="field">
-          <label for="field-budget">Estimated Budget</label>
+          <label for="field-budget" data-i18n="start.field_budget">Estimated Budget</label>
           <select id="field-budget" name="Estimated Budget">
-            <option value="Under $500">Under $500</option>
-            <option value="$500–$1,000">$500–$1,000</option>
-            <option value="$1,000–$2,500">$1,000–$2,500</option>
-            <option value="$2,500–$5,000">$2,500–$5,000</option>
-            <option value="$5,000+">$5,000+</option>
-            <option value="Not sure yet" selected>Not sure yet</option>
+            <option value="Under $500" data-i18n="start.budget_under_500">Under $500</option>
+            <option value="$500–$1,000" data-i18n="start.budget_500_1000">$500–$1,000</option>
+            <option value="$1,000–$2,500" data-i18n="start.budget_1000_2500">$1,000–$2,500</option>
+            <option value="$2,500–$5,000" data-i18n="start.budget_2500_5000">$2,500–$5,000</option>
+            <option value="$5,000+" data-i18n="start.budget_5000_plus">$5,000+</option>
+            <option value="Not sure yet" selected data-i18n="start.budget_not_sure">Not sure yet</option>
           </select>
         </div>
 
         <div class="field">
-          <label for="field-message">Tell us about your project</label>
+          <label for="field-message" data-i18n="start.field_message">Tell us about your project</label>
           <textarea id="field-message" name="Project Details" required></textarea>
           <span class="field-error"></span>
         </div>
 
-        <button class="btn btn-primary btn-block btn-large" type="submit">Submit Project</button>
+        <button class="btn btn-primary btn-block btn-large" type="submit" data-i18n="start.submit">Submit Project</button>
 
         <div class="form-status" data-form-status role="status" aria-live="polite"></div>
       </form>
@@ -143,27 +148,29 @@
     <div class="footer__top">
       <span class="footer__brand">Eric Kramar Studio LLC</span>
       <nav class="footer__nav" aria-label="Footer">
-        <a href="index.html#services">Services</a>
-        <a href="index.html#work">Work</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#pricing">Pricing</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.html#services" data-i18n="nav.services">Services</a>
+        <a href="index.html#work" data-i18n="nav.work">Work</a>
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
     </div>
     <div class="footer__bottom">
-      <span>&copy; <span id="year">2026</span> Eric Kramar Studio LLC. All rights reserved.</span>
+      <span>&copy; <span id="year">2026</span> Eric Kramar Studio LLC. <span data-i18n="footer.rights">All rights reserved.</span></span>
       <div class="footer__legal">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-<script src="js/theme.js?v=6"></script>
-<script src="js/nav.js?v=6"></script>
-<script src="js/animations.js?v=6"></script>
-<script src="js/form.js?v=6"></script>
+<script src="js/i18n-data.js?v=8"></script>
+<script src="js/i18n.js?v=8"></script>
+<script src="js/theme.js?v=8"></script>
+<script src="js/nav.js?v=8"></script>
+<script src="js/animations.js?v=8"></script>
+<script src="js/form.js?v=8"></script>
 </body>
 </html>

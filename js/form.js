@@ -12,6 +12,10 @@
    To switch to a different backend later (e.g. your own API), replace
    the fetch() call in submitForm() — the validation logic above it can
    stay as-is.
+
+   Messages (validation errors, sending/success/error states) come from
+   js/i18n-data.js via the "start.*" keys, so they follow whatever
+   language the visitor has selected.
    --------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
   var STUDIO_EMAIL = "contact@erickramar.com";
@@ -22,12 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
   var statusEl = form.querySelector("[data-form-status]");
   var submitBtn = form.querySelector("[type='submit']");
 
-  function setError(field, message) {
+  function t(key) {
+    return i18nGet(i18nCurrentLang(), key) || key;
+  }
+
+  function setError(field, key) {
     var wrapper = field.closest(".field");
     if (!wrapper) return;
     wrapper.classList.add("has-error");
     var errorEl = wrapper.querySelector(".field-error");
-    if (errorEl) errorEl.textContent = message;
+    if (errorEl) {
+      errorEl.setAttribute("data-i18n", key);
+      errorEl.textContent = t(key);
+    }
   }
 
   function clearError(field) {
@@ -50,19 +61,19 @@ document.addEventListener("DOMContentLoaded", function () {
     [name, email, need, message].forEach(clearError);
 
     if (!name.value.trim()) {
-      setError(name, "Please enter your name.");
+      setError(name, "start.name_error");
       valid = false;
     }
     if (!email.value.trim() || !isValidEmail(email.value.trim())) {
-      setError(email, "Please enter a valid email address.");
+      setError(email, "start.email_error");
       valid = false;
     }
     if (!need.value.trim()) {
-      setError(need, "Let us know what you need.");
+      setError(need, "start.need_error");
       valid = false;
     }
     if (!message.value.trim()) {
-      setError(message, "Tell us a bit about your project.");
+      setError(message, "start.message_error");
       valid = false;
     }
 
@@ -71,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showStatus(kind, text) {
     if (!statusEl) return;
+    statusEl.removeAttribute("data-i18n");
     statusEl.textContent = text;
     statusEl.className = "form-status is-visible is-" + kind;
   }
@@ -87,29 +99,26 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     if (!validate()) {
-      showStatus("error", "Please fix the highlighted fields and try again.");
+      showStatus("error", t("start.validation_error"));
       return;
     }
 
     var formData = new FormData(form);
     submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
+    submitBtn.textContent = t("start.sending");
 
     submitForm(formData)
       .then(function (response) {
         if (!response.ok) throw new Error("Request failed");
-        showStatus("success", "Thanks — your project details are on their way. We'll be in touch shortly.");
+        showStatus("success", t("start.success"));
         form.reset();
       })
       .catch(function () {
-        showStatus(
-          "error",
-          "Something went wrong sending this. Please try again, or email us directly at " + STUDIO_EMAIL + "."
-        );
+        showStatus("error", t("start.error") + " " + STUDIO_EMAIL + ".");
       })
       .finally(function () {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Submit Project";
+        submitBtn.textContent = t("start.submit");
       });
   });
 });
