@@ -4,20 +4,35 @@
 
 /* ---- Hero ---- */
 
+/* The hero is a permanent dark "brand moment" (like a title card),
+   independent of the site's light/dark toggle — a light-mode galaxy
+   doesn't read as premium, and the rest of the page still follows the
+   visitor's theme. */
 .hero {
   position: relative;
-  min-height: 100dvh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding-top: var(--nav-height);
   overflow: hidden;
+  background: #0b0b0c;
+  color: #f5f5f7;
+  --dot-color: rgba(10, 124, 255, 0.4);
+}
+
+.hero .lead {
+  color: #a1a1a6;
+}
+
+.hero .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #fff;
 }
 
 /* Full-bleed dot-grid backdrop, faded toward the edges so it reads as
    atmosphere rather than a hard grid. Base color is --dot-color (blue,
-   set per-theme in variables.css); a second white layer is masked to a
-   spotlight that follows the cursor (--mx/--my, set by js/animations.js)
-   so the field shimmers blue -> white under the pointer. */
+   forced above); a second white layer is masked to a spotlight that
+   follows the cursor (--mx/--my, set by js/animations.js) so the field
+   shimmers blue -> white under the pointer. */
 .hero::before {
   content: "";
   position: absolute;
@@ -48,11 +63,46 @@
   opacity: 1;
 }
 
+/* ---- Cosmic title card: galaxy-like mark with the studio name
+   flanking it left/right, echoing a "GPT ... Astra" style brand
+   moment. Sits above the headline/CTA block. ---- */
+.hero__cosmic {
+  position: relative;
+  z-index: 1;
+  min-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__brand-flank {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 1.6vw + 0.75rem, 2.25rem);
+  letter-spacing: -0.01em;
+  color: #f5f5f7;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero__brand-flank--left {
+  left: var(--space-4);
+}
+
+.hero__brand-flank--right {
+  right: var(--space-4);
+}
+
 .hero__grid {
   position: relative;
   z-index: 2;
   display: grid;
   width: 100%;
+  padding-block: var(--space-5) var(--space-6);
   pointer-events: none; /* let clicks/hover pass through to the logo behind empty space */
 }
 
@@ -78,8 +128,8 @@
   gap: var(--space-2);
 }
 
-/* The particle logo now fills the entire hero as a background layer,
-   behind the text (z-index below .hero__grid) but above the dot field. */
+/* The particle logo fills the cosmic band as a background layer,
+   behind the flanking text (z-index below) but above the dot field. */
 .hero__stage {
   position: absolute;
   inset: 0;
@@ -92,7 +142,7 @@
 
 .hero__mark {
   position: relative;
-  width: min(80vh, 85vw, 820px);
+  width: min(50vh, 60vw, 560px);
   will-change: transform;
   filter: drop-shadow(0 40px 90px rgba(10, 124, 255, 0.22));
   pointer-events: auto;
@@ -113,10 +163,6 @@
   inset: 0;
   width: 100%;
   height: 100%;
-}
-
-.section-dark .hero__mark {
-  filter: drop-shadow(0 30px 80px rgba(10, 124, 255, 0.28)) invert(0);
 }
 
 .hero__glow {
@@ -755,16 +801,30 @@
     display: none;
   }
 
-  /* Not enough width to sit the giant mark beside the text without
-     crowding it — push it down into the empty space below the CTAs
-     instead, and shrink it. */
-  .hero__stage {
-    align-items: flex-end;
-    padding-bottom: var(--space-6);
+  /* Not enough width to flank the mark left/right — stack the two
+     brand-name halves above and below it instead, centered. */
+  .hero__cosmic {
+    min-height: 46vh;
   }
 
   .hero__mark {
-    width: min(48vw, 220px);
+    width: min(45vw, 200px);
+  }
+
+  .hero__brand-flank {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 1.125rem;
+  }
+
+  .hero__brand-flank--left {
+    top: var(--space-3);
+  }
+
+  .hero__brand-flank--right {
+    top: auto;
+    bottom: var(--space-3);
   }
 }
 

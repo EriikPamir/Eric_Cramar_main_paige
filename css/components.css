@@ -24,6 +24,48 @@
   border-bottom-color: var(--color-border);
 }
 
+/* The home page opens on the permanently-dark hero "cosmic" band (see
+   .hero in sections.css) — while it's still in view (before the visitor
+   scrolls, i.e. no .is-scrolled yet), force the nav to a dark reading
+   regardless of the site's light/dark toggle, so it doesn't float as a
+   pale bar over a black background. :has() scopes this to pages that
+   actually contain a .hero (only index.html), so other pages are
+   unaffected. Reverts to normal theme-following colors once scrolled. */
+body:has(.hero) .nav:not(.is-scrolled) {
+  background: rgba(11, 11, 12, 0.75);
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .nav__brand {
+  color: #f5f5f7;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .nav__burger span {
+  background: #f5f5f7;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .nav__links a {
+  color: #a1a1a6;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .nav__links a:hover,
+body:has(.hero) .nav:not(.is-scrolled) .nav__links a.is-active {
+  color: #fff;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .lang-switch,
+body:has(.hero) .nav:not(.is-scrolled) .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #f5f5f7;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .lang-switch button {
+  color: #a1a1a6;
+}
+
+body:has(.hero) .nav:not(.is-scrolled) .lang-switch button:hover {
+  color: #fff;
+}
+
 .nav__inner {
   width: 100%;
   display: flex;
