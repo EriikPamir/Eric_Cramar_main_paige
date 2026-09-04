@@ -24,8 +24,8 @@ var PARTICLE_DAMPING = 0.86; /* velocity decay per frame — higher = floatier *
 var PARTICLE_IDLE_AMPLITUDE = 4; /* px of random wander at rest — keep well under the particle spacing */
 var PARTICLE_IDLE_SPEED = 0.6;
 
-var PARTICLE_REPEL_RADIUS_RATIO = 1.15; /* fraction of max(width,height) the cursor affects — large so hovering anywhere near the mark reaches every particle */
-var PARTICLE_REPEL_STRENGTH = 17; /* how hard the cursor scatters nearby particles */
+var PARTICLE_REPEL_RADIUS_RATIO = 0.5; /* fraction of max(width,height) the cursor affects */
+var PARTICLE_REPEL_STRENGTH = 7; /* how hard/fast the cursor scatters nearby particles */
 
 var PARTICLE_SCROLL_STRENGTH = 9; /* how hard scrolling the mark out of view blows it apart — kept gentle */
 var PARTICLE_SCROLL_EASE = 0.045; /* how gradually the scroll force ramps up/down, so it never snaps */
