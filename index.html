@@ -16,11 +16,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="css/variables.css?v=12" />
-<link rel="stylesheet" href="css/base.css?v=12" />
-<link rel="stylesheet" href="css/components.css?v=12" />
-<link rel="stylesheet" href="css/sections.css?v=12" />
-<link rel="stylesheet" href="css/animations.css?v=12" />
+<link rel="stylesheet" href="css/variables.css?v=13" />
+<link rel="stylesheet" href="css/base.css?v=13" />
+<link rel="stylesheet" href="css/components.css?v=13" />
+<link rel="stylesheet" href="css/sections.css?v=13" />
+<link rel="stylesheet" href="css/animations.css?v=13" />
 </head>
 <body>
 <a class="skip-link" href="#main" data-i18n="a11y.skip_link">Skip to content</a>
@@ -285,7 +285,7 @@
             </div>
           </div>
           <div class="work-tile__budget" data-i18n="work.01.budget">Starting from $2,500+</div>
-          <button class="btn btn-ghost" disabled title="Case study page coming soon" data-i18n-title="work.coming_soon" data-i18n="work.view_project">View Project</button>
+          <button class="btn btn-ghost" data-project-key="01" data-i18n="work.view_project">View Project</button>
         </div>
       </div>
     </article>
@@ -325,7 +325,7 @@
             </div>
           </div>
           <div class="work-tile__budget" data-i18n="work.02.budget">Starting from $370</div>
-          <button class="btn btn-ghost" disabled title="Case study page coming soon" data-i18n-title="work.coming_soon" data-i18n="work.view_project">View Project</button>
+          <button class="btn btn-ghost" data-project-key="02" data-i18n="work.view_project">View Project</button>
         </div>
       </div>
     </article>
@@ -365,7 +365,7 @@
             </div>
           </div>
           <div class="work-tile__budget" data-i18n="work.03.budget">Custom Quote</div>
-          <button class="btn btn-ghost" disabled title="Case study page coming soon" data-i18n-title="work.coming_soon" data-i18n="work.view_project">View Project</button>
+          <button class="btn btn-ghost" data-project-key="03" data-i18n="work.view_project">View Project</button>
         </div>
       </div>
     </article>
@@ -420,7 +420,7 @@
             </div>
           </div>
           <div class="work-tile__budget" data-i18n="work.04.budget">Starting from $370</div>
-          <button class="btn btn-ghost" disabled title="Case study page coming soon" data-i18n-title="work.coming_soon" data-i18n="work.view_project">View Project</button>
+          <button class="btn btn-ghost" data-project-key="04" data-i18n="work.view_project">View Project</button>
         </div>
       </div>
     </article>
@@ -452,7 +452,7 @@
             </div>
           </div>
           <div class="work-tile__budget" data-i18n="work.05.budget">Starting from $1,000</div>
-          <button class="btn btn-ghost" disabled title="Case study page coming soon" data-i18n-title="work.coming_soon" data-i18n="work.view_project">View Project</button>
+          <button class="btn btn-ghost" data-project-key="05" data-i18n="work.view_project">View Project</button>
         </div>
       </div>
     </article>
@@ -525,9 +525,9 @@
       </div>
 
       <div class="pricing-grid" data-reveal-group>
-        <div class="card pricing-card" data-reveal-child>
-          <h3 data-i18n="pricing.plan1.name">One-Page Website</h3>
-          <div class="pricing-card__price">$300 <span data-i18n="pricing.starting_at">starting at</span></div>
+        <div class="card pricing-card" data-reveal-child data-pricing-plan="plan1">
+          <h3 data-plan-name data-i18n="pricing.plan1.name">One-Page Website</h3>
+          <div class="pricing-card__price"><span data-price-value>$300</span> <span data-i18n="pricing.starting_at">starting at</span></div>
           <p class="pricing-card__desc" data-i18n="pricing.plan1.desc">A one-page website for a business, service, product or campaign.</p>
           <ul>
             <li data-i18n="pricing.plan1.feature1">Responsive design</li>
@@ -537,10 +537,10 @@
           <a class="btn btn-ghost btn-block" href="start-a-project.html" data-i18n="pricing.cta">Start a Project</a>
         </div>
 
-        <div class="card pricing-card is-featured" data-reveal-child>
+        <div class="card pricing-card is-featured" data-reveal-child data-pricing-plan="plan2">
           <span class="pricing-card__badge" data-i18n="pricing.badge">Most popular</span>
-          <h3 data-i18n="pricing.plan2.name">Multi-Page Website</h3>
-          <div class="pricing-card__price">$370 <span data-i18n="pricing.starting_at">starting at</span></div>
+          <h3 data-plan-name data-i18n="pricing.plan2.name">Multi-Page Website</h3>
+          <div class="pricing-card__price"><span data-price-value>$370</span> <span data-i18n="pricing.starting_at">starting at</span></div>
           <p class="pricing-card__desc" data-i18n="pricing.plan2.desc">$300 for the first page + $70 for each additional page.</p>
           <ul>
             <li data-i18n="pricing.plan2.feature1">Full business or corporate site</li>
@@ -550,9 +550,9 @@
           <a class="btn btn-primary btn-block" href="start-a-project.html" data-i18n="pricing.cta">Start a Project</a>
         </div>
 
-        <div class="card pricing-card" data-reveal-child>
-          <h3 data-i18n="pricing.plan3.name">Web Application</h3>
-          <div class="pricing-card__price">$1,000 <span data-i18n="pricing.starting_at">starting at</span></div>
+        <div class="card pricing-card" data-reveal-child data-pricing-plan="plan3">
+          <h3 data-plan-name data-i18n="pricing.plan3.name">Web Application</h3>
+          <div class="pricing-card__price"><span data-price-value>$1,000</span> <span data-i18n="pricing.starting_at">starting at</span></div>
           <p class="pricing-card__desc" data-i18n="pricing.plan3.desc">Final cost depends on functionality, integrations and technical complexity.</p>
           <ul>
             <li data-i18n="pricing.plan3.feature1">Dashboards &amp; portals</li>
@@ -562,9 +562,9 @@
           <a class="btn btn-ghost btn-block" href="start-a-project.html" data-i18n="pricing.cta">Start a Project</a>
         </div>
 
-        <div class="card pricing-card" data-reveal-child>
-          <h3 data-i18n="pricing.plan4.name">Custom Development</h3>
-          <div class="pricing-card__price"><span data-i18n="pricing.plan4.price">Custom</span> <span data-i18n="pricing.plan4.price_suffix">quote</span></div>
+        <div class="card pricing-card" data-reveal-child data-pricing-plan="plan4">
+          <h3 data-plan-name data-i18n="pricing.plan4.name">Custom Development</h3>
+          <div class="pricing-card__price"><span data-price-value data-i18n="pricing.plan4.price">Custom</span> <span data-i18n="pricing.plan4.price_suffix">quote</span></div>
           <p class="pricing-card__desc" data-i18n="pricing.plan4.desc">Advanced animation, 3D, e-commerce, AI or non-standard integrations.</p>
           <ul>
             <li data-i18n="pricing.plan4.feature1">Advanced scroll / 3D experiences</li>
@@ -799,15 +799,32 @@
   </div>
 </footer>
 
+<!-- ==================== PROJECT GALLERY (lightbox) ==================== -->
+<div class="gallery-modal" data-gallery-modal hidden>
+  <div class="gallery-modal__backdrop" data-gallery-close></div>
+  <div class="gallery-modal__dialog" role="dialog" aria-modal="true" aria-label="Project screenshots">
+    <button class="gallery-modal__close" data-gallery-close type="button" aria-label="Close">&times;</button>
+    <button class="gallery-modal__nav gallery-modal__nav--prev" data-gallery-prev type="button" aria-label="Previous screenshot">&#8249;</button>
+    <div class="gallery-modal__frame">
+      <img class="gallery-modal__image" data-gallery-image alt="" />
+      <p class="gallery-modal__empty" data-gallery-empty hidden data-i18n="work.gallery_empty">Screenshots coming soon.</p>
+    </div>
+    <button class="gallery-modal__nav gallery-modal__nav--next" data-gallery-next type="button" aria-label="Next screenshot">&#8250;</button>
+    <div class="gallery-modal__counter" data-gallery-counter></div>
+  </div>
+</div>
+
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
-<script src="js/i18n-data.js?v=12"></script>
-<script src="js/i18n.js?v=12"></script>
-<script src="js/theme.js?v=12"></script>
-<script src="js/nav.js?v=12"></script>
-<script src="js/animations.js?v=12"></script>
-<script src="js/faq.js?v=12"></script>
-<script src="js/particle-logo.js?v=12"></script>
-<script src="js/cube.js?v=12"></script>
-<script src="js/node-network.js?v=12"></script>
+<script src="js/i18n-data.js?v=13"></script>
+<script src="js/i18n.js?v=13"></script>
+<script src="js/theme.js?v=13"></script>
+<script src="js/nav.js?v=13"></script>
+<script src="js/animations.js?v=13"></script>
+<script src="js/faq.js?v=13"></script>
+<script src="js/particle-logo.js?v=13"></script>
+<script src="js/cube.js?v=13"></script>
+<script src="js/node-network.js?v=13"></script>
+<script src="js/pricing-override.js?v=13"></script>
+<script src="js/project-gallery.js?v=13"></script>
 </body>
 </html>

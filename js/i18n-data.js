@@ -89,6 +89,7 @@ window.I18N = {
     "work.meta.features": "Key features",
     "work.coming_soon": "Case study page coming soon",
     "work.view_project": "View Project",
+    "work.gallery_empty": "Screenshots coming soon.",
 
     "work.01.category": "Luxury / 3D Product",
     "work.01.title": "Interactive product experience",
@@ -460,6 +461,7 @@ window.I18N = {
     "work.meta.features": "Ключевые функции",
     "work.coming_soon": "Страница кейса скоро появится",
     "work.view_project": "Смотреть проект",
+    "work.gallery_empty": "Скриншоты скоро появятся.",
 
     "work.01.category": "Люкс / 3D-продукт",
     "work.01.title": "Интерактивная презентация продукта",
@@ -831,6 +833,7 @@ window.I18N = {
     "work.meta.features": "Funciones clave",
     "work.coming_soon": "Página del caso de estudio próximamente",
     "work.view_project": "Ver proyecto",
+    "work.gallery_empty": "Las capturas estarán disponibles pronto.",
 
     "work.01.category": "Lujo / Producto 3D",
     "work.01.title": "Experiencia interactiva de producto",

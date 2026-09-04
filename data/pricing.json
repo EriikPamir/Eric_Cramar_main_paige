@@ -1,0 +1,6 @@
+{
+  "plan1": { "name": "One-Page Website", "price": "$300" },
+  "plan2": { "name": "Multi-Page Website", "price": "$370" },
+  "plan3": { "name": "Web Application", "price": "$1,000" },
+  "plan4": { "name": "Custom Development", "price": "Custom" }
+}
