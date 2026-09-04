@@ -67,17 +67,17 @@
   position: relative;
   z-index: 2;
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
   width: 100%;
   min-height: 100dvh;
-  align-content: center;
-  pointer-events: none; /* let clicks/hover pass through to the logo behind empty space */
 }
 
 .hero__content {
   position: relative;
-  pointer-events: auto;
   justify-self: start;
-  max-width: 640px;
+  max-width: 560px;
 }
 
 .hero__content h1 {
@@ -95,24 +95,24 @@
   gap: var(--space-2);
 }
 
-/* The particle logo fills the entire hero as a background layer,
-   behind the text (z-index below .hero__grid) but above the dot field. */
+/* Its own grid column beside the text — never overlapping it, so hover
+   reaches every particle and nothing sits on top of the copy. */
 .hero__stage {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
+  height: 100%;
+  justify-self: end;
 }
 
 .hero__mark {
   position: relative;
-  width: min(88vh, 92vw, 980px);
+  width: min(80vh, 640px);
+  max-width: 100%;
   will-change: transform;
   filter: drop-shadow(0 40px 90px rgba(10, 124, 255, 0.22));
-  pointer-events: auto;
 }
 
 /* Shared by every [data-particle-logo] instance (hero + about, currently).
@@ -243,6 +243,142 @@
 .work-tile__visual svg {
   width: 100%;
   height: 100%;
+}
+
+/* ---- Shuffling color swatches (E-commerce tile) ----
+   All six squares share the same 2x3 grid, which happens to have every
+   cell on its own perimeter — so a single ring path visits all of them.
+   Each <g> animates along that ring starting from its own slot, so the
+   squares continuously and smoothly trade places like a conveyor belt.
+   The hover scale/glow lives on the inner <rect> instead of the <g> so
+   it never fights with the running position animation. */
+.ecom-swatch {
+  fill: var(--swatch-color);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 220ms ease, filter 220ms ease;
+  cursor: pointer;
+}
+
+.ecom-swatch:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 12px 26px var(--swatch-color));
+}
+
+.ecom-tile {
+  animation-duration: 18s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.ecom-tile--1 { animation-name: ecom-ring-1; }
+.ecom-tile--2 { animation-name: ecom-ring-2; }
+.ecom-tile--3 { animation-name: ecom-ring-3; }
+.ecom-tile--4 { animation-name: ecom-ring-4; }
+.ecom-tile--5 { animation-name: ecom-ring-5; }
+.ecom-tile--6 { animation-name: ecom-ring-6; }
+
+@keyframes ecom-ring-1 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(105px, 0); }
+  33.33% { transform: translate(210px, 0); }
+  50% { transform: translate(210px, 110px); }
+  66.66% { transform: translate(105px, 110px); }
+  83.33% { transform: translate(0, 110px); }
+}
+
+@keyframes ecom-ring-2 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(105px, 0); }
+  33.33% { transform: translate(105px, 110px); }
+  50% { transform: translate(0, 110px); }
+  66.66% { transform: translate(-105px, 110px); }
+  83.33% { transform: translate(-105px, 0); }
+}
+
+@keyframes ecom-ring-3 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(0, 110px); }
+  33.33% { transform: translate(-105px, 110px); }
+  50% { transform: translate(-210px, 110px); }
+  66.66% { transform: translate(-210px, 0); }
+  83.33% { transform: translate(-105px, 0); }
+}
+
+@keyframes ecom-ring-4 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(0, -110px); }
+  33.33% { transform: translate(105px, -110px); }
+  50% { transform: translate(210px, -110px); }
+  66.66% { transform: translate(210px, 0); }
+  83.33% { transform: translate(105px, 0); }
+}
+
+@keyframes ecom-ring-5 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(-105px, 0); }
+  33.33% { transform: translate(-105px, -110px); }
+  50% { transform: translate(0, -110px); }
+  66.66% { transform: translate(105px, -110px); }
+  83.33% { transform: translate(105px, 0); }
+}
+
+@keyframes ecom-ring-6 {
+  0%, 100% { transform: translate(0, 0); }
+  16.66% { transform: translate(-105px, 0); }
+  33.33% { transform: translate(-210px, 0); }
+  50% { transform: translate(-210px, -110px); }
+  66.66% { transform: translate(-105px, -110px); }
+  83.33% { transform: translate(0, -110px); }
+}
+
+/* ---- Plate + glow (Restaurant tile) ---- */
+.rest-icon__glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rest-glow-pulse 6s ease-in-out infinite;
+}
+
+.rest-icon__plate {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rest-plate-breathe 7s ease-in-out infinite;
+}
+
+.rest-icon__fork,
+.rest-icon__knife {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rest-utensil-sway 5s ease-in-out infinite;
+}
+
+.rest-icon__knife {
+  animation-delay: -2.5s; /* sways opposite the fork instead of in lockstep */
+}
+
+@keyframes rest-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes rest-plate-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045); }
+}
+
+@keyframes rest-utensil-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecom-tile,
+  .rest-icon__glow,
+  .rest-icon__plate,
+  .rest-icon__fork,
+  .rest-icon__knife {
+    animation: none;
+  }
 }
 
 .node-network-canvas {
@@ -768,12 +904,17 @@
     display: none;
   }
 
-  /* Not enough width to sit the giant mark beside the text without
-     crowding it — push it down into the empty space below the CTAs
-     instead, and shrink it. */
+  /* Not enough width for side-by-side columns — stack the mark below
+     the text instead, and shrink it. */
+  .hero__grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-block: var(--space-8) var(--space-6);
+    gap: var(--space-4);
+  }
+
   .hero__stage {
-    align-items: flex-end;
-    padding-bottom: var(--space-6);
+    justify-self: center;
   }
 
   .hero__mark {

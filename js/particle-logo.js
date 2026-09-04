@@ -27,7 +27,8 @@ var PARTICLE_IDLE_SPEED = 0.6;
 var PARTICLE_REPEL_RADIUS_RATIO = 1.15; /* fraction of max(width,height) the cursor affects — large so hovering anywhere near the mark reaches every particle */
 var PARTICLE_REPEL_STRENGTH = 17; /* how hard the cursor scatters nearby particles */
 
-var PARTICLE_SCROLL_STRENGTH = 30; /* how hard scrolling the mark out of view blows it apart */
+var PARTICLE_SCROLL_STRENGTH = 9; /* how hard scrolling the mark out of view blows it apart — kept gentle */
+var PARTICLE_SCROLL_EASE = 0.045; /* how gradually the scroll force ramps up/down, so it never snaps */
 
 /* Each particle picks one of these at random. Edit to change the palette. */
 var PARTICLE_COLORS = ["#0a7cff", "#22d3ee", "#8b5cf6", "#f472b6", "#ffffff"];
@@ -48,6 +49,7 @@ function setUpParticleLogo(wrap) {
   var particles = [];
   var mouse = { x: -9999, y: -9999, active: false };
   var scrollFactor = 0;
+  var scrollFactorTarget = 0;
   var running = false;
   var rafId = null;
 
@@ -120,7 +122,7 @@ function setUpParticleLogo(wrap) {
   function updateScrollFactor() {
     var rect = wrap.getBoundingClientRect();
     var next = -rect.top / (rect.height || 1);
-    scrollFactor = Math.min(Math.max(next, 0), 1);
+    scrollFactorTarget = Math.min(Math.max(next, 0), 1);
   }
 
   function tick(now) {
@@ -133,6 +135,8 @@ function setUpParticleLogo(wrap) {
     var repelRadius = Math.max(width, height) * PARTICLE_REPEL_RADIUS_RATIO;
     var cx = width / 2;
     var cy = height / 2;
+
+    scrollFactor += (scrollFactorTarget - scrollFactor) * PARTICLE_SCROLL_EASE;
 
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
