@@ -1,33 +1,36 @@
-/* Studio logo rendered as an interactive particle field — a vanilla-JS/
-   Canvas take on the "Particle Text" effect (react-bits), built from
-   the studio mark instead of literal text. Particles assemble into the
-   logo's shape and scatter away from the cursor, then ease back into
-   place. Works on every [data-particle-logo] element on the page.
+/* Studio logo rendered as an interactive, glowing particle field —
+   circles of varied color and size, softly glowing, sampled from the
+   logo image. Works on every [data-particle-logo] element (hero +
+   about). Behavior:
+     - At rest: each particle wanders gently around its home position
+       (a small orbit, not a straight line), staying inside the logo's
+       own silhouette since the wander distance is kept smaller than
+       the gap between neighboring particles.
+     - Cursor nearby: particles are pushed outward, scattering well
+       past the logo's edge.
+     - Scrolling the element past the viewport: an additional outward
+       force scales up with how far it's scrolled, so the mark blows
+       apart as you scroll through it.
+     - Cursor leaves and scroll returns to 0: both forces drop away and
+       the constant spring back to the home position reassembles the
+       shape smoothly.
 
    Tune the feel here: */
 var PARTICLE_GRID = 100; /* sampling resolution — higher = crisper shape, more particles */
-var PARTICLE_STEP = 2; /* keep 1 in every N sampled points — higher = sparser */
-var PARTICLE_EASE = 0.06; /* how eagerly particles return to their target position */
-var PARTICLE_REPEL_STRENGTH = 3.2;
+var PARTICLE_STEP = 3; /* keep 1 in every N sampled points — higher = fewer, chunkier particles */
+var PARTICLE_EASE = 0.06; /* how eagerly a particle springs back toward its (wandering) home */
+var PARTICLE_DAMPING = 0.86; /* velocity decay per frame — higher = floatier */
 
-/* Particles are solid blue at rest and ease to white near the cursor.
-   Edit these to change the palette. */
-var PARTICLE_COLOR_BASE = [10, 124, 255]; /* blue */
-var PARTICLE_COLOR_HOVER = [255, 255, 255]; /* white */
-var PARTICLE_COLOR_EASE = 0.12; /* how quickly a particle blends toward its target color */
+var PARTICLE_IDLE_AMPLITUDE = 4; /* px of random wander at rest — keep well under the particle spacing */
+var PARTICLE_IDLE_SPEED = 0.6;
 
-var PARTICLE_COLOR_STEPS = 48;
-var PARTICLE_COLOR_PALETTE = (function () {
-  var palette = [];
-  for (var i = 0; i < PARTICLE_COLOR_STEPS; i++) {
-    var t = i / (PARTICLE_COLOR_STEPS - 1);
-    var r = Math.round(PARTICLE_COLOR_BASE[0] + (PARTICLE_COLOR_HOVER[0] - PARTICLE_COLOR_BASE[0]) * t);
-    var g = Math.round(PARTICLE_COLOR_BASE[1] + (PARTICLE_COLOR_HOVER[1] - PARTICLE_COLOR_BASE[1]) * t);
-    var b = Math.round(PARTICLE_COLOR_BASE[2] + (PARTICLE_COLOR_HOVER[2] - PARTICLE_COLOR_BASE[2]) * t);
-    palette.push("rgb(" + r + "," + g + "," + b + ")");
-  }
-  return palette;
-})();
+var PARTICLE_REPEL_RADIUS_RATIO = 1.15; /* fraction of max(width,height) the cursor affects — large so hovering anywhere near the mark reaches every particle */
+var PARTICLE_REPEL_STRENGTH = 17; /* how hard the cursor scatters nearby particles */
+
+var PARTICLE_SCROLL_STRENGTH = 30; /* how hard scrolling the mark out of view blows it apart */
+
+/* Each particle picks one of these at random. Edit to change the palette. */
+var PARTICLE_COLORS = ["#0a7cff", "#22d3ee", "#8b5cf6", "#f472b6", "#ffffff"];
 
 document.addEventListener("DOMContentLoaded", function () {
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -44,8 +47,13 @@ function setUpParticleLogo(wrap) {
   var ctx = canvas.getContext("2d");
   var particles = [];
   var mouse = { x: -9999, y: -9999, active: false };
+  var scrollFactor = 0;
   var running = false;
   var rafId = null;
+
+  function randomColor() {
+    return PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)];
+  }
 
   function sampleParticles(width, height) {
     var off = document.createElement("canvas");
@@ -83,8 +91,10 @@ function setUpParticleLogo(wrap) {
           y: existing ? existing.y : height / 2 + (Math.random() - 0.5) * height * 1.6,
           vx: existing ? existing.vx : 0,
           vy: existing ? existing.vy : 0,
-          r: existing ? existing.r : Math.random() * 1.1 + 0.5,
-          colorT: existing ? existing.colorT : 0,
+          r: existing ? existing.r : Math.random() * 2.6 + 1.1,
+          color: existing ? existing.color : randomColor(),
+          phase: existing ? existing.phase : Math.random() * Math.PI * 2,
+          idleAmp: existing ? existing.idleAmp : PARTICLE_IDLE_AMPLITUDE * (0.5 + Math.random() * 0.9),
         });
       }
     }
@@ -103,46 +113,70 @@ function setUpParticleLogo(wrap) {
     return { width: width, height: height };
   }
 
-  function tick() {
+  /* 0 while the mark sits at its normal resting spot in the viewport,
+     rising to 1 as it scrolls up and out of view — same idea as the
+     hero's --scroll-progress, computed independently per instance so
+     the About-page mark doesn't inherit the hero's scroll state. */
+  function updateScrollFactor() {
+    var rect = wrap.getBoundingClientRect();
+    var next = -rect.top / (rect.height || 1);
+    scrollFactor = Math.min(Math.max(next, 0), 1);
+  }
+
+  function tick(now) {
     if (!running) return;
     var width = wrap.clientWidth;
     var height = wrap.clientHeight;
     ctx.clearRect(0, 0, width, height);
 
-    var repelRadius = Math.max(width, height) * 0.22;
+    var t = now * 0.001;
+    var repelRadius = Math.max(width, height) * PARTICLE_REPEL_RADIUS_RATIO;
+    var cx = width / 2;
+    var cy = height / 2;
 
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
-      p.vx += (p.tx - p.x) * PARTICLE_EASE;
-      p.vy += (p.ty - p.y) * PARTICLE_EASE;
 
-      var isNearCursor = false;
+      /* Home position wanders in a small orbit instead of sitting dead
+         still, but the orbit radius (idleAmp) is kept smaller than the
+         gap between sampled points, so it never visibly leaves the shape. */
+      var homeX = p.tx + Math.sin(t * PARTICLE_IDLE_SPEED + p.phase) * p.idleAmp;
+      var homeY = p.ty + Math.cos(t * PARTICLE_IDLE_SPEED * 0.85 + p.phase) * p.idleAmp;
+      p.vx += (homeX - p.x) * PARTICLE_EASE;
+      p.vy += (homeY - p.y) * PARTICLE_EASE;
+
       if (mouse.active) {
         var dx = p.x - mouse.x;
         var dy = p.y - mouse.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < repelRadius) {
-          isNearCursor = true;
           var force = (repelRadius - dist) / repelRadius;
           p.vx += (dx / (dist || 1)) * force * PARTICLE_REPEL_STRENGTH;
           p.vy += (dy / (dist || 1)) * force * PARTICLE_REPEL_STRENGTH;
         }
       }
 
-      p.vx *= 0.86;
-      p.vy *= 0.86;
+      if (scrollFactor > 0) {
+        var sdx = p.tx - cx;
+        var sdy = p.ty - cy;
+        var sdist = Math.sqrt(sdx * sdx + sdy * sdy) || 1;
+        p.vx += (sdx / sdist) * scrollFactor * PARTICLE_SCROLL_STRENGTH;
+        p.vy += (sdy / sdist) * scrollFactor * PARTICLE_SCROLL_STRENGTH;
+      }
+
+      p.vx *= PARTICLE_DAMPING;
+      p.vy *= PARTICLE_DAMPING;
       p.x += p.vx;
       p.y += p.vy;
 
-      /* Ease each particle's own color toward blue (rest) or white
-         (near cursor) rather than snapping, for a soft glow-in. */
-      p.colorT += ((isNearCursor ? 1 : 0) - p.colorT) * PARTICLE_COLOR_EASE;
-      var paletteIndex = Math.round(p.colorT * (PARTICLE_COLOR_PALETTE.length - 1));
-
+      ctx.save();
+      ctx.shadowBlur = 5 + p.r * 3;
+      ctx.shadowColor = p.color;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r + p.colorT * p.r * 0.6, 0, Math.PI * 2);
-      ctx.fillStyle = PARTICLE_COLOR_PALETTE[paletteIndex];
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
       ctx.fill();
+      ctx.restore();
     }
 
     rafId = window.requestAnimationFrame(tick);
@@ -164,6 +198,7 @@ function setUpParticleLogo(wrap) {
     if (!sampleParticles(size.width, size.height)) return; /* keep the static <img> on failure */
     img.style.visibility = "hidden";
     canvas.style.display = "block";
+    updateScrollFactor();
     start();
   }
 
@@ -182,6 +217,8 @@ function setUpParticleLogo(wrap) {
       sampleParticles(size.width, size.height);
     }, 150);
   });
+
+  window.addEventListener("scroll", updateScrollFactor, { passive: true });
 
   wrap.addEventListener("pointermove", function (e) {
     var rect = wrap.getBoundingClientRect();

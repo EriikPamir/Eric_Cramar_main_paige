@@ -63,46 +63,13 @@
   opacity: 1;
 }
 
-/* ---- Cosmic title card: galaxy-like mark with the studio name
-   flanking it left/right, echoing a "GPT ... Astra" style brand
-   moment. Sits above the headline/CTA block. ---- */
-.hero__cosmic {
-  position: relative;
-  z-index: 1;
-  min-height: 58vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero__brand-flank {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.25rem, 1.6vw + 0.75rem, 2.25rem);
-  letter-spacing: -0.01em;
-  color: #f5f5f7;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.hero__brand-flank--left {
-  left: var(--space-4);
-}
-
-.hero__brand-flank--right {
-  right: var(--space-4);
-}
-
 .hero__grid {
   position: relative;
   z-index: 2;
   display: grid;
   width: 100%;
-  padding-block: var(--space-5) var(--space-6);
+  min-height: 100dvh;
+  align-content: center;
   pointer-events: none; /* let clicks/hover pass through to the logo behind empty space */
 }
 
@@ -128,8 +95,8 @@
   gap: var(--space-2);
 }
 
-/* The particle logo fills the cosmic band as a background layer,
-   behind the flanking text (z-index below) but above the dot field. */
+/* The particle logo fills the entire hero as a background layer,
+   behind the text (z-index below .hero__grid) but above the dot field. */
 .hero__stage {
   position: absolute;
   inset: 0;
@@ -142,7 +109,7 @@
 
 .hero__mark {
   position: relative;
-  width: min(50vh, 60vw, 560px);
+  width: min(88vh, 92vw, 980px);
   will-change: transform;
   filter: drop-shadow(0 40px 90px rgba(10, 124, 255, 0.22));
   pointer-events: auto;
@@ -801,30 +768,16 @@
     display: none;
   }
 
-  /* Not enough width to flank the mark left/right — stack the two
-     brand-name halves above and below it instead, centered. */
-  .hero__cosmic {
-    min-height: 46vh;
+  /* Not enough width to sit the giant mark beside the text without
+     crowding it — push it down into the empty space below the CTAs
+     instead, and shrink it. */
+  .hero__stage {
+    align-items: flex-end;
+    padding-bottom: var(--space-6);
   }
 
   .hero__mark {
-    width: min(45vw, 200px);
-  }
-
-  .hero__brand-flank {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    font-size: 1.125rem;
-  }
-
-  .hero__brand-flank--left {
-    top: var(--space-3);
-  }
-
-  .hero__brand-flank--right {
-    top: auto;
-    bottom: var(--space-3);
+    width: min(60vw, 260px);
   }
 }
 
