@@ -132,12 +132,22 @@
   height: 100%;
 }
 
+/* Spans the full hero (not just the logo's column) so it reads as
+   ambient light behind the whole scene, centered on roughly where the
+   mark sits — confining it to the logo's own column left a visible
+   rectangular seam against the plain background beside it. */
 .hero__glow {
   position: absolute;
-  inset: -20%;
-  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 60%);
+  inset: -10%;
+  background: radial-gradient(circle at 72% 45%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 55%);
   z-index: 1;
   pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .hero__glow {
+    background: radial-gradient(circle at 50% 65%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 55%);
+  }
 }
 
 /* ---- Value proposition ---- */
