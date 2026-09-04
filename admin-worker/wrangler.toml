@@ -1,0 +1,19 @@
+name = "eks-admin"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+kv_namespaces = [
+  { binding = "ADMIN_KV", id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID" }
+]
+
+[vars]
+GITHUB_OWNER = "EriikPamir"
+GITHUB_REPO = "Eric_Cramar_main_paige"
+GITHUB_BRANCH = "main"
+ADMIN_EMAIL = "contact@erickramar.com"
+ALLOWED_ORIGIN = "https://erickramar.com"
+
+# Secrets (never put these here — set them with `wrangler secret put <NAME>`):
+#   GITHUB_TOKEN    fine-grained GitHub PAT, Contents: Read and write, scoped to this one repo
+#   SESSION_SECRET  any long random string, used to sign login sessions
+#   RESEND_API_KEY  API key from resend.com, used to email login codes

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Studio Admin — Eric Kramar Studio</title>
+<link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico" />
+<link rel="stylesheet" href="css/variables.css?v=13" />
+<link rel="stylesheet" href="css/base.css?v=13" />
+<link rel="stylesheet" href="css/components.css?v=13" />
+<link rel="stylesheet" href="css/admin.css?v=13" />
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <h1>Studio Admin</h1>
+
+  <!-- ---- Logged out: request + enter the one-time login ---- -->
+  <section id="admin-login" class="admin-card">
+    <p class="admin-hint">Click below to email yourself a fresh one-time login and password.</p>
+    <button id="admin-request-code" class="btn btn-primary" type="button">Email me a login code</button>
+    <p id="admin-request-status" class="admin-status"></p>
+
+    <form id="admin-login-form" class="admin-form">
+      <label>Login<input type="text" id="admin-username" autocomplete="off" required /></label>
+      <label>Password<input type="text" id="admin-password" autocomplete="off" required /></label>
+      <button class="btn btn-primary" type="submit">Log in</button>
+      <p id="admin-login-status" class="admin-status"></p>
+    </form>
+  </section>
+
+  <!-- ---- Logged in: the actual admin panel ---- -->
+  <section id="admin-panel" class="admin-card" hidden>
+    <div class="admin-panel-header">
+      <span>Logged in</span>
+      <button id="admin-logout" class="btn btn-ghost" type="button">Log out</button>
+    </div>
+
+    <h2>Pricing</h2>
+    <div id="pricing-editor" class="admin-pricing-grid"></div>
+    <button id="save-pricing" class="btn btn-primary" type="button">Save pricing</button>
+    <p id="pricing-status" class="admin-status"></p>
+
+    <h2>Existing work tiles (01–05)</h2>
+    <div id="projects-editor"></div>
+
+    <h2>Add a new portfolio tile</h2>
+    <form id="add-project-form" class="admin-form">
+      <label>Category<input type="text" id="new-category" required /></label>
+      <label>Title<input type="text" id="new-title" required /></label>
+      <label>Goal / description<textarea id="new-goal" required></textarea></label>
+      <label>Tags (comma separated)<input type="text" id="new-tags" /></label>
+      <label>Budget label<input type="text" id="new-budget" placeholder="Starting from $500" /></label>
+      <button class="btn btn-primary" type="submit">Add tile</button>
+    </form>
+
+    <h2>Other portfolio tiles</h2>
+    <div id="extra-projects-editor"></div>
+  </section>
+</div>
+
+<script src="js/admin.js?v=13"></script>
+</body>
+</html>
